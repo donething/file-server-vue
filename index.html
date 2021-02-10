@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>文件列表</title>
+  <link rel="stylesheet" type="text/css" href="css/antd.min.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+<div id="app">
+  <a-breadcrumb class="do-nav do-row">
+    <!-- 当前路径 -->
+    <span>
+      <a-breadcrumb-item v-for="(item,index) in relPaths" :key="index">
+      <span @click="onPathNavClicked(index)" class="do-path-item">{{item}}</span>
+    </a-breadcrumb-item>
+    </span>
+    <!-- 工具栏 -->
+    <span><a-button @click="authVisible=true" size="small">授权码</a-button></span>
+  </a-breadcrumb>
+
+  <a-list :data-source="filesList" :split="false">
+    <a-list-item slot="renderItem" slot-scope="file" class="do-row do-file-item">
+      <span class="do-file-logo-name">
+        <img :src="'assets/icons/'+(file.is_dir?'folder.svg':'file.svg')" class="do-avatar"/>
+        <span :title="file.name" @click="onFileNameClicked(file.name)" class="do-file-name">{{file.name}}</span>
+      </span>
+      <span class="do-file-size">{{file.is_dir ? "-" : file.size}}</span>
+      <span class="do-file-last">{{file.last}}</span>
+      <img src="assets/icons/delete.svg" title="删除" @click="onDelBnClicked(file.name)" class="do-avatar"/>
+    </a-list-item>
+  </a-list>
+
+  <!-- 授权码输入模态对话框 -->
+  <a-modal v-model="authVisible" title="需输入授权码" @ok="saveAuth">
+    <a-input-password v-model="auth" placeholder="授权码"></a-input-password>
+  </a-modal>
+</div>
+
+<script src="js/libs/vue.min.js"></script>
+<script src="js/libs/antd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

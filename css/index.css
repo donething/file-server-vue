@@ -1,0 +1,89 @@
+html, body {
+    width: 70%;
+    margin: 0 auto;
+    padding: 0;
+    color: #555;
+    background: #F6F6F6;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#app {
+    height: 100vh;
+    padding: 3px;
+    border: 1px solid #e8e8e8;
+}
+
+.do-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.do-col {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* 头像 */
+.do-avatar {
+    width: 20px;
+    overflow: hidden;
+}
+
+.do-success-text {
+    color: #52c41a;
+}
+
+.do-path-item {
+    min-width: 50px;
+    max-width: 100px;
+    font-weight: bold;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.do-path-item:hover {
+    color: #40a9ff;
+}
+
+.do-file-item {
+    /*margin-left: 5px;*/
+}
+
+.do-file-logo-name {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+}
+
+.do-file-name {
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.do-file-name:hover {
+    color: #40a9ff;
+}
+
+.do-file-size {
+    width: 10%;
+    white-space: nowrap;
+}
+
+.do-file-last {
+    width: 30%;
+    white-space: nowrap;
+}
