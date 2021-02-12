@@ -9,17 +9,26 @@
 </head>
 <body>
 <div id="app">
-  <a-breadcrumb class="do-nav do-row">
+  <div class="do-nav do-row">
     <!-- 当前路径 -->
-    <span>
+    <a-breadcrumb>
       <a-breadcrumb-item v-for="(item,index) in relPaths" :key="index">
-      <span @click="onPathNavClicked(index)" class="do-path-item">{{item}}</span>
-    </a-breadcrumb-item>
-    </span>
-    <!-- 工具栏 -->
-    <span><a-button @click="authVisible=true" size="small">授权码</a-button></span>
-  </a-breadcrumb>
+        <span @click="onPathNavClicked(index)" class="do-path-item">{{item}}</span>
+      </a-breadcrumb-item>
+    </a-breadcrumb>
 
+    <!-- 更多操作 -->
+    <a-dropdown>
+      <a-menu slot="overlay" @click="onMoreClicked">
+        <a-menu-item key="auth"> <a-icon type="lock"></a-icon>授权码</a-menu-item>
+        <a-menu-item key="magnet"> <a-icon type="cloud-download"></a-icon>磁力下载</a-menu-item>
+        <a-menu-item key="link"> <a-icon type="link"></a-icon>普通链接</a-menu-item>
+      </a-menu>
+      <a-button>更多操作<a-icon type="down"/></a-button>
+    </a-dropdown>
+  </div>
+
+  <!-- 文件列表 -->
   <a-list :data-source="filesList" :split="false">
     <a-list-item slot="renderItem" slot-scope="file" class="do-row do-file-item">
       <span class="do-file-logo-name">
@@ -32,8 +41,8 @@
     </a-list-item>
   </a-list>
 
-  <!-- 授权码输入模态对话框 -->
-  <a-modal v-model="authVisible" title="需输入授权码" @ok="saveAuth">
+  <!-- 输入授权码的模态对话框 -->
+  <a-modal v-model="authVisible" title="输入授权码" @ok="saveAuth">
     <a-input-password v-model="auth" placeholder="授权码"></a-input-password>
   </a-modal>
 </div>

@@ -2,7 +2,6 @@ new Vue({
   el: '#app',
   data() {
     return {
-      addr: "http://127.0.0.1:20200",   // 后台的服务地址
       relPaths: ["."],   // 路径导航栏中表示当前的路径（为相对路径），listFiles()等需要使用
       filesList: [],     // 当前路径下的文件列表，用于数据视图绑定
       auth: "",          // 授权码，将保存到 localstorage中，用于在删除文件操作时在请求头中传递认证信息
@@ -55,13 +54,29 @@ new Vue({
         },
       });
     },
+    onMoreClicked(e) {
+      switch (e.key) {
+        case "auth":
+          this.authVisible = true;
+          break;
+        case "magnet":
+          window.open("http://itoa.site:2020/", "_blank");
+          break;
+        case "link":
+          window.open("https://files.itoa.site/ariang/", "_blank");
+          break;
+        default:
+          console.log("未知的操作 key：", e.key);
+          this.$message.warn("未知的操作 key：" + e.key);
+      }
+    },
     /**
      * 列出文件，路径为数组 relPaths
      */
     listFiles() {
       let path = this.relPaths.join("/");
       console.log("列出目录下文件：", path);
-      Utils.request(`${this.addr}/api/file?op=list&rel=${path}`).then(response => {
+      Utils.request(`/api/file?op=list&rel=${path}`).then(response => {
         let data = JSON.parse(response.text);
         if (data.code === 10) {
           this.filesList = data.data;
@@ -80,7 +95,7 @@ new Vue({
      */
     downFile(path) {
       console.log("下载该文件：", path);
-      window.open(`${this.addr}/api/file?op=down&rel=${path}`);
+      window.open(`/api/file?op=down&rel=${path}`);
     },
     /**
      * 删除文件
@@ -89,7 +104,7 @@ new Vue({
     delFile(path) {
       console.log("删除该文件", path);
       let headers = {"Authorization": localStorage.getItem("auth")};
-      Utils.request(`${this.addr}/api/file?op=del&rel=${path}`, null, headers).then(response => {
+      Utils.request(`/api/file?op=del&rel=${path}`, null, headers).then(response => {
         // 删除文件需要提供授权码
         if (response.status === 401) {
           console.log(`文件"${path}"删除失败：未提供授权码`);
