@@ -59,11 +59,14 @@ new Vue({
         case "auth":
           this.authVisible = true;
           break;
+        case "nginx":
+          window.open("/downloads/", "_blank");
+          break;
         case "magnet":
           window.open("http://itoa.site:2020/", "_blank");
           break;
         case "link":
-          window.open("https://files.itoa.site/ariang/", "_blank");
+          window.open("/ariang/", "_blank");
           break;
         default:
           console.log("未知的操作 key：", e.key);
