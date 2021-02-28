@@ -56,9 +56,6 @@ new Vue({
     },
     onMoreClicked(e) {
       switch (e.key) {
-        case "auth":
-          this.authVisible = true;
-          break;
         case "nginx":
           window.open("/downloads/", "_blank");
           break;
@@ -67,6 +64,9 @@ new Vue({
           break;
         case "link":
           window.open("/ariang/", "_blank");
+          break;
+        case "auth":
+          this.authVisible = true;
           break;
         default:
           console.log("未知的操作 key：", e.key);
